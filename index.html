@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissors</title>
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
+    <div class="banner">
+        <img src="./images/rps.png" alt="Rock-Paper-Scissors">
+        <div id="logo">Rock-Paper-Scissors</div>
+
+    </div>
+    <div class="score">
+        <H1>Player</H1>
+        <input type="text" name="PlayerScore" id="player" placeholder="0" disabled>
+        <H1>vs</H1>
+        <input type="text" name="EnemyScore" id="enemy" placeholder="0" disabled>
+        <H1>Opponent</H1>
+    </div>
+
+    <div class="playerSelect">
+        <button id="rock">
+            <img src="./images/rock.png" alt="Rock Icon">
+        </button>
+        <button id="paper">
+            <img src="./images/paper.png" alt="Paper Icon">
+        </button>
+        <button id="scissors"><img src="./images/scissors.png" alt=""></button>
+    </div>
     
 </body>
 </html>

@@ -1,3 +1,16 @@
+// Buttons is a node list. Similar to array
+const buttons = document.querySelectorAll("button");
+
+// Use .forEach method to iterate through each button
+buttons.forEach((button) => {
+
+    // and for each one we add a 'click' listener
+    button.addEventListener('click', () => {
+        playerSelection(button.id);
+    });
+
+});
+
 function getComputerChoice() {
     let x = Math.floor(Math.random() * 3);
 
@@ -14,8 +27,7 @@ function getComputerChoice() {
     }
 }
 
-function playerSelection(){
-    let choice = prompt("Rock, Paper, or Scissors?", "rock");
+function playerSelection(choice){
     return choice.toLowerCase();
 }
 
@@ -36,35 +48,34 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function game(){
 
-    let playerScore = 0;
-    let CPUScore = 0;
-    let roundWinner;
 
+function game(playerSelection, computerSelection){
+    let playerScore = 0; 
+    let enemyScore = 0;
+    let winner;
     for(let i = 0; i < 5; ++i){
-        roundWinner = playRound(playerSelection(), getComputerChoice());
-
-        if(roundWinner === 1){
+        winner = playRound(playerSelection(), computerSelection());
+        if(winner === -1){
+            ++enemyScore;
+        }
+        else if(winner === 1){
             ++playerScore;
         }
-        else if(roundWinner === 0){
-            continue;
-        }
         else{
-            ++CPUScore;
+            continue;
         }
     }
 
-    if(CPUScore === playerScore){
-        alert("You Tied!");
+    if(playerScore > enemyScore){
+        alert("You Win!");
     }
-    else if(CPUScore > playerScore){
+    else if(playerScore < enemyScore){
         alert("You Lose!");
     }
     else{
-        alert("You Win!");
+        alert("tie!");
     }
 }
 
-game();
+
