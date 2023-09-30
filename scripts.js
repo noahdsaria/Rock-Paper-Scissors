@@ -1,16 +1,3 @@
-// Buttons is a node list. Similar to array
-const buttons = document.querySelectorAll("button");
-
-// Use .forEach method to iterate through each button
-buttons.forEach((button) => {
-
-    // and for each one we add a 'click' listener
-    button.addEventListener('click', () => {
-        playerSelection(button.id);
-    });
-
-});
-
 function getComputerChoice() {
     let x = Math.floor(Math.random() * 3);
 
@@ -27,55 +14,96 @@ function getComputerChoice() {
     }
 }
 
-function playerSelection(choice){
-    return choice.toLowerCase();
-}
-
 function playRound(playerSelection, computerSelection){
     switch(playerSelection){
         case "rock":
-            if(computerSelection === "rock"){return 0;}
-            else if(computerSelection === "paper"){return -1;}
-            else{return 1;}
+            if(computerSelection === "rock"){return 0}
+            else if(computerSelection === "paper"){
+                return document.getElementById('enemy')
+            }
+            else{
+                return document.getElementById('player');
+            }
+            break;
         case "paper":
             if(computerSelection === "paper"){return 0;}
-            else if(computerSelection === "scissors"){return -1;}
-            else{return 1;}
+            else if(computerSelection === "scissors"){
+                return document.getElementById('enemy');
+            }
+            else{
+                return document.getElementById('player');
+            }
+            break;
         case "scissors":
-            if(computerSelection === "scissors"){return 0;}
-            else if(computerSelection === "rock"){return -1;}
-            else{return 1;}
+            if(computerSelection === "scissors"){
+                return 0;
+            }
+            else if(computerSelection === "rock"){
+                return document.getElementById('enemy');
+            }
+            else{
+                return document.getElementById('player');
+            }
     }
 }
 
+let playerScore = 0; 
+let enemyScore = 0;
+let numRounds = 0;
+let choice = '';
+
+function updateDisplay(){
+    document.getElementById("player").value = playerScore;
+    document.getElementById("enemy").value = enemyScore;
+}
+function reset(){
+    playerScore = 0; 
+    enemyScore = 0;
+    numRounds = 0;
+    updateDisplay();
+}
 
 
-function game(playerSelection, computerSelection){
-    let playerScore = 0; 
-    let enemyScore = 0;
-    let winner;
-    for(let i = 0; i < 5; ++i){
-        winner = playRound(playerSelection(), computerSelection());
-        if(winner === -1){
-            ++enemyScore;
-        }
-        else if(winner === 1){
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        choice = button.id;
+        let winner = playRound(choice, getComputerChoice());
+
+        if(winner.id === 'player'){
             ++playerScore;
+            alert("Player Scores");
+        }
+        else if(winner.id === 'enemy'){
+            ++enemyScore;
+            alert("Opponent Scores");
         }
         else{
-            continue;
+            alert("Tie!");
         }
-    }
 
-    if(playerScore > enemyScore){
-        alert("You Win!");
-    }
-    else if(playerScore < enemyScore){
-        alert("You Lose!");
-    }
-    else{
-        alert("tie!");
-    }
-}
+        ++numRounds;
+        updateDisplay();
 
+
+        if(numRounds % 5 === 0){
+            if(playerScore > enemyScore){
+                alert("Player Wins!"); 
+
+
+            }
+            else if(playerScore < enemyScore){
+                alert("Opponent Wins!");
+
+            }
+            else{
+                alert("Game Tie!");
+
+            }
+            reset();
+        }
+    });
+});
 
